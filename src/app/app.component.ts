@@ -1,3 +1,4 @@
+import { HttpService } from './http.service';
 import { Component, OnInit } from '@angular/core';
 import { Post } from './post';
 
@@ -9,17 +10,41 @@ import { Post } from './post';
 
 export class AppComponent implements OnInit {
   private post: Post = { userId: 5, id: 101, title: 'SomeTitle', body: 'somebody' };
+  private post2: Post;
+  public postTitle;
+  public postBody;
 
-  constructor() { }
+  constructor(private httpService: HttpService) { }
 
   ngOnInit() {
+    this.createPost();
+    this.insertData();
   }
 
-  public addPost() {
-
+  public createPost() {
+    this.httpService.postPosts(this.post)
+    .subscribe(console.log);
   }
 
-  private getPostsData() {
+  public readPost() {
+    this.httpService.getPosts()
+    .subscribe(response => {
+        this.post2 = response as Post;
+    });
+  }
 
+  public updatePost() {
+    this.httpService.postPosts(this.post)
+    .subscribe(console.log);
+  }
+
+  public deletePost() {
+    this.httpService.postPosts(this.post)
+    .subscribe(console.log);
+  }
+
+  public insertData() {
+    this.postTitle = (`${this.post.title}`);
+    this.postBody = (`${this.post.body}`);
   }
 };

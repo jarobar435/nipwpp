@@ -2,6 +2,8 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 
 import { AppComponent } from './app.component';
+import { HttpService } from 'app/http.service';
+import { HttpClientModule } from '@angular/common/http';
 
 
 @NgModule({
@@ -10,8 +12,11 @@ import { AppComponent } from './app.component';
   ],
   imports: [
     BrowserModule,
+    HttpClientModule
   ],
-  providers: [],
+  providers: [
+    HttpService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

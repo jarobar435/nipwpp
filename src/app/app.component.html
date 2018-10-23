@@ -1,8 +1,8 @@
-<!-- <p>
-  <button (click)="addPost()">
+<p>
+  <button (click)="createPost()">
     ADD POST
   </button>
-</p> -->
+</p>
 
 <table>
   <tr>
@@ -11,10 +11,10 @@
   </tr>
   <tr *ngFor="let post of posts">
     <td>
-      <!-- add title here -->
+      {{ postTitle }}
     </td>
     <td>
-      <!-- add body here -->
+      {{ postBody }}
     </td>
   </tr>
 </table>
