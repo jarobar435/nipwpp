@@ -1,0 +1,139 @@
+{
+	"info": {
+		"_postman_id": "a0b4dbe1-06a2-429a-a0ab-3d75154c99b8",
+		"name": "NIPWPP LAB3",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Get blogposts",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{API_URL}}/api/v1/blogposts",
+					"host": [
+						"{{API_URL}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"blogposts"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get blogpost by id",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{API_URL}}/api/v1/blogposts",
+					"host": [
+						"{{API_URL}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"blogposts"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get blogpost by id Copy",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"title\": \"New Post\",\n\t\"description\": \"Lorem ipsum..\"\n}"
+				},
+				"url": {
+					"raw": "{{API_URL}}/api/v1/blogposts",
+					"host": [
+						"{{API_URL}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"blogposts"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get blogpost by id Copy Copy",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"id\": 1,\n    \"title\": \"New t\",\n    \"description\": \"Lorem ipsum..\"\n}"
+				},
+				"url": {
+					"raw": "{{API_URL}}/api/v1/blogposts/1654",
+					"host": [
+						"{{API_URL}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"blogposts",
+						"1654"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get blogpost by id Copy Copy",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{API_URL}}/api/v1/blogposts",
+					"host": [
+						"{{API_URL}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"blogposts"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
