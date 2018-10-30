@@ -11,10 +11,20 @@
   </tr>
   <tr *ngFor="let post of posts">
     <td>
-      {{ postTitle }}
+      {{ post.title }}
     </td>
     <td>
-      {{ postBody }}
+      {{ post.body }}
+    </td>
+    <td>
+      <button (click)="updatePost(post.id)">
+        Update POST
+      </button>
+    </td>
+    <td>
+      <button (click)="deletePost(post.id)">
+        Delete POST
+      </button>
     </td>
   </tr>
 </table>

@@ -10,7 +10,7 @@ import { Post } from './post';
 
 export class AppComponent implements OnInit {
   private post: Post = { userId: 5, id: 101, title: 'SomeTitle', body: 'somebody' };
-  private post2: Post;
+  private posts: Post[];
   public postTitle;
   public postBody;
 
@@ -18,7 +18,7 @@ export class AppComponent implements OnInit {
 
   ngOnInit() {
     this.createPost();
-    this.insertData();
+    this.readPosts();
   }
 
   public createPost() {
@@ -26,25 +26,20 @@ export class AppComponent implements OnInit {
     .subscribe(console.log);
   }
 
-  public readPost() {
+  public readPosts() {
     this.httpService.getPosts()
-    .subscribe(response => {
-        this.post2 = response as Post;
+    .subscribe((response:Post[]) => {
+        this.posts = response
     });
   }
 
-  public updatePost() {
-    this.httpService.postPosts(this.post)
+  public updatePost(id) {
+    this.httpService.putPosts(id, this.post)
     .subscribe(console.log);
   }
 
-  public deletePost() {
-    this.httpService.postPosts(this.post)
+  public deletePost(id) {
+    this.httpService.deletePosts(id)
     .subscribe(console.log);
-  }
-
-  public insertData() {
-    this.postTitle = (`${this.post.title}`);
-    this.postBody = (`${this.post.body}`);
   }
 };
