@@ -6,7 +6,7 @@
 	},
 	"item": [
 		{
-			"name": "Get blogposts",
+			"name": "Get all blogposts",
 			"request": {
 				"method": "GET",
 				"header": [],
@@ -38,21 +38,22 @@
 					"raw": ""
 				},
 				"url": {
-					"raw": "{{API_URL}}/api/v1/blogposts",
+					"raw": "{{API_URL}}/api/v1/blogposts/1",
 					"host": [
 						"{{API_URL}}"
 					],
 					"path": [
 						"api",
 						"v1",
-						"blogposts"
+						"blogposts",
+						"1"
 					]
 				}
 			},
 			"response": []
 		},
 		{
-			"name": "Get blogpost by id Copy",
+			"name": "Post blogpost",
 			"request": {
 				"method": "POST",
 				"header": [
@@ -65,7 +66,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n\t\"title\": \"New Post\",\n\t\"description\": \"Lorem ipsum..\"\n}"
+					"raw": "{\n\t\"id\": \"1\",\n\t\"title\": \"New Post\",\n\t\"description\": \"Lorem ipsum..\"\n}"
 				},
 				"url": {
 					"raw": "{{API_URL}}/api/v1/blogposts",
@@ -82,15 +83,15 @@
 			"response": []
 		},
 		{
-			"name": "Get blogpost by id Copy Copy",
+			"name": "Put blogpost",
 			"request": {
 				"method": "PUT",
 				"header": [
 					{
 						"key": "Content-Type",
 						"name": "Content-Type",
-						"value": "application/json",
-						"type": "text"
+						"type": "text",
+						"value": "application/json"
 					}
 				],
 				"body": {
@@ -113,23 +114,24 @@
 			"response": []
 		},
 		{
-			"name": "Get blogpost by id Copy Copy",
+			"name": "Delete blogpost",
 			"request": {
-				"method": "GET",
+				"method": "DELETE",
 				"header": [],
 				"body": {
 					"mode": "raw",
 					"raw": ""
 				},
 				"url": {
-					"raw": "{{API_URL}}/api/v1/blogposts",
+					"raw": "{{API_URL}}/api/v1/blogposts/1",
 					"host": [
 						"{{API_URL}}"
 					],
 					"path": [
 						"api",
 						"v1",
-						"blogposts"
+						"blogposts",
+						"1"
 					]
 				}
 			},

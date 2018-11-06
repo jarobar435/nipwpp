@@ -10,15 +10,15 @@ using Posts.Api.Repositories;
 
 namespace Posts.Api.Controllers
 {
-    [ApiVersion("1")]
+    [ApiVersion("2")]
     [Route("api/v{version:apiVersion}/BlogPosts")]
     [ApiController]
-    public class BlogPostsController : ControllerBase
+    public class BlogPostsV2Controller : ControllerBase
     {
 
         private readonly ILogger<BlogPostsController> _logger;
         private readonly IBlogPostRepository _postsRepo;
-        public BlogPostsController(ILogger<BlogPostsController> logger, IBlogPostRepository repo)
+        public BlogPostsV2Controller(ILogger<BlogPostsController> logger, IBlogPostRepository repo)
         {
             _logger = logger;
             _postsRepo = repo;
@@ -68,12 +68,11 @@ namespace Posts.Api.Controllers
         [ProducesResponseType(404)]
         public async Task<IActionResult> Put(long id, [FromBody] BlogPost updatedPost)
         {
-
-            throw new Exception("No posts atm");
             BlogPost post = await _postsRepo.GetAsync(id);
             if (post == null)
             {
                 _logger.LogWarning("testk");
+                throw new Exception("No posts atm");
             }
             else
             {
