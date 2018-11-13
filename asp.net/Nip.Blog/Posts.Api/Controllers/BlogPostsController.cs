@@ -34,7 +34,7 @@ namespace Posts.Api.Controllers
         [ProducesResponseType(404)]
         public async Task<ActionResult<IEnumerable<BlogPost>>> Get()
         {
-            return Ok(_postsRepo.GetAllAsync());
+            return Ok(await _postsRepo.GetAllAsync().ToList());
         } 
 
         // GET api/blogposts/5

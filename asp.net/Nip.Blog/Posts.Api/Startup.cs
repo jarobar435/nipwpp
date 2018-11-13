@@ -61,9 +61,20 @@ namespace Posts.Api
             //var connection = @"Server=(localdb)\mssqllocaldb;Database=BlogPostsDb;Trusted_Connection=True;ConnectRetryCount=0";
             //services.AddDbContextPool<BlogPostContext>(options => options.UseSqlServer(connection));
 
-            var connection = @"Data Source=Data/Posts.db";
-            services.AddDbContextPool<BlogPostContext>(opt => opt.UseSqlite(connection));
-        }
+            var dbType = Configuration.GetValue<string>("SelectedDbType");
+            if (dbType == "SQLite")
+            {
+                var connection = Configuration.GetConnectionString("SQLiteBlogPostsDatabase");
+                services.AddDbContextPool<BlogPostContext>(opt => opt.UseSqlite(connection));
+            }
+            else
+            {
+                var connection = Configuration.GetConnectionString("MsSQLBlogPostsDatabase");
+                services.AddDbContextPool<BlogPostContext>(options => options.UseSqlServer(connection));
+            }
+
+                //var connection = @"Data Source=Data/Posts.db";
+            }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env, BlogPostContext context, IApiVersionDescriptionProvider apiVersionDescProvider)
@@ -103,8 +114,6 @@ namespace Posts.Api
                 }
                 c.RoutePrefix = string.Empty; // serve the Swagger UI at the app's root
             });
-
-
         }
 
 

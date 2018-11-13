@@ -18,6 +18,14 @@ namespace Posts.Api.Controllers
         public IActionResult Index()
         {
             return StatusCode(500, new { Error = "Unknown error" });
-        } 
+        }
+
+        //[ProducesResponseType(503)]
+        //[AllowAnonymous]
+        //[ApiExplorerSettings(IgnoreApi = true)]
+        //public IActionResult Concurency()
+        //{
+        //    return StatusCode(503, new { Error = "Record being currently used. Resend your query." });
+        //}
     }
 }

@@ -16,26 +16,49 @@ namespace Posts.Api.Controllers
     public class BlogPostsV2Controller : ControllerBase
     {
 
-        private readonly ILogger<BlogPostsController> _logger;
+        private readonly ILogger<BlogPostsV2Controller> _logger;
         private readonly IBlogPostRepository _postsRepo;
-        public BlogPostsV2Controller(ILogger<BlogPostsController> logger, IBlogPostRepository repo)
+        public BlogPostsV2Controller(ILogger<BlogPostsV2Controller> logger, IBlogPostRepository repo)
         {
             _logger = logger;
             _postsRepo = repo;
         }
 
-        // GET api/blogposts
+        // GET api/v2/blogposts[?pageIndex=3&pageSize=10]
         [HttpGet]
-        [ProducesResponseType(200, Type = typeof(BlogPost))]
         [ProducesResponseType(204)]
         [ProducesResponseType(400)]
         [ProducesResponseType(401)]
         [ProducesResponseType(403)]
         [ProducesResponseType(404)]
-        public async Task<ActionResult<IEnumerable<BlogPost>>> Get()
+        [ProducesResponseType(200, Type = typeof(IEnumerable<BlogPost>))]
+        [ProducesResponseType(200, Type = typeof(PaginatedItems<BlogPost>))]
+        public async Task<IActionResult> Get([FromQuery]int pageIndex = -1, [FromQuery]int pageSize = 5)
         {
-            return Ok(_postsRepo.GetAllAsync());
-        } 
+            var posts = await _postsRepo.GetAllAsync().ToList();
+            if (pageIndex < 0)
+            {
+                return Ok(await _postsRepo.GetAllAsync().ToList());
+            }
+            else
+            {
+                PaginatedItems<BlogPost> pagedPosts = await _postsRepo.GetAllPagedAsync(pageIndex, pageSize);
+                bool isLastPage = false;
+                if (pageIndex >= pagedPosts.TotalItems / pageSize)
+                    isLastPage = true;
+                pagedPosts.NextPage = (!isLastPage ? Url.Link(null, new { pageIndex = pageIndex + 1, pageSize = pageSize }) : null);
+                return Ok(pagedPosts);
+            }
+        }
+
+        [HttpGet("withtitle/{title:minlength(1)}")]
+        [ProducesResponseType(400)]
+        [ProducesResponseType(200, Type = typeof(PaginatedItems<BlogPost>))]
+        public async Task<IActionResult> Get(string title, [FromQuery]int pageIndex = 0, [FromQuery]int pageSize = 5)
+        {
+            var pagedPosts = await _postsRepo.GetAllPagedAsync(pageIndex, pageSize, x => x.Title.Contains(title));
+            return Ok(pagedPosts);
+        }
 
         // GET api/blogposts/5
         [HttpGet("{id}", Name = "GetBlogPost")]
@@ -107,6 +130,29 @@ namespace Posts.Api.Controllers
         public async Task Post([FromBody] BlogPost post)
         {
             await _postsRepo.AddAsync(post);
+        }
+
+
+        [ProducesResponseType(200, Type = typeof(BlogPostComment))]
+        [ProducesResponseType(400)]
+        [ProducesResponseType(401)]
+        [ProducesResponseType(403)]
+        [ProducesResponseType(404)]
+        [HttpGet("{id}/comments", Name = "GetBlogPostComments")]
+        public async Task<ActionResult<IEnumerable<BlogPostComment>>> GetAllComments(long id)
+        {
+            return Ok(await _postsRepo.GetCommentsAsync(id));
+        }
+
+        [ProducesResponseType(201, Type = typeof(BlogPostComment))]
+        [ProducesResponseType(400)]
+        [ProducesResponseType(401)]
+        [ProducesResponseType(403)]
+        [ProducesResponseType(404)]
+        [HttpPost("{id}/comments")]
+        public async Task PostComment(long id, [FromBody] BlogPostComment comment)
+        {
+            await _postsRepo.AddCommentAsync(id, comment);
         }
     }
 }
