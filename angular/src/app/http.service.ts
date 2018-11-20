@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs/Observable';
-import { Post } from './post';
+import { Post } from './post-list/post/post';
 
 
-const API_URL = 'https://jsonplaceholder.typicode.com/posts'
+const API_URL = 'https://localhost:5001/api/v2/blogposts'
 @Injectable()
 export class HttpService {
 

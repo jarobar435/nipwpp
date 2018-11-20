@@ -44,6 +44,13 @@ namespace Posts.Api
                 });
             services.AddApiVersioning(options => options.ReportApiVersions = true);
 
+            services.AddCors(o => o.AddPolicy("MyPolicy", builder =>
+            {
+                builder.AllowAnyOrigin()
+                       .AllowAnyMethod()
+                       .AllowAnyHeader();
+            }));
+
             _logger.LogInformation("Adding Swagger documentation generator");
             services.AddSwaggerGen(
                 options =>
@@ -100,6 +107,8 @@ namespace Posts.Api
                 app.UseExceptionHandler("/api/v1/Error");
                 app.UseHsts();
             }
+
+            app.UseCors("MyPolicy");
 
             app.UseHttpsRedirection();
             app.UseMvc();

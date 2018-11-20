@@ -1,0 +1,28 @@
+<h1> BLOG POST LIST </h1>
+<p-table [value]="posts">
+    <ng-template pTemplate="header">
+        <tr>
+            <th>Id</th>
+            <th>Title</th>
+            <th>Description</th>
+            <th>Update</th>
+            <th>Delete</th>
+        </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-post>
+        <tr>
+            <td>{{post.id}}</td>
+            <td>{{post.title}}</td>
+            <td>{{post.description}}</td>
+            <td>
+              <p-button label="Update" (onClick)="handleUpdate(post.id)"></p-button>
+            </td>
+            <td>
+              <p-button label="Delete" (onClick)="handleDelete(post.id)"></p-button>
+            </td>
+        </tr>
+    </ng-template>
+</p-table>
+<br>
+  <p-button label="Add Post!" (onClick)="handleAddPost()"></p-button>
+<app-post></app-post>
